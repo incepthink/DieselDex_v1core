@@ -1,0 +1,9 @@
+[workspace]
+members = [
+  "./contracts/diesel_amm_contract",
+  "./contracts/diesel_validation_hook",
+  "./contracts/mocks/mock_token",
+  "./libraries/interfaces",
+  "./libraries/utils",
+  "./libraries/math",
+]

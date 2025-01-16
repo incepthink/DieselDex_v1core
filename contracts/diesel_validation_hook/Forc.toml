@@ -1,0 +1,10 @@
+[project]
+authors = ["Diesel AMM"]
+entry = "main.sw"
+license = "Apache-2.0"
+name = "diesel_validation_hook"
+
+[dependencies]
+interfaces = { path = "../../libraries/interfaces" }
+math = { path = "../../libraries/math" }
+utils = { path = "../../libraries/utils" }

@@ -1,0 +1,8 @@
+[project]
+authors = ["Diesel AMM"]
+entry = "lib.sw"
+license = "Apache-2.0"
+name = "math"
+
+[dependencies]
+interfaces = { path = "../interfaces" }
