@@ -42,6 +42,20 @@ pub mod common {
         DieselAMMContract { instance, id: contract_id.into() }
     }
 
+    pub async fn deploy_owner_proxy(wallet: &WalletUnlocked) -> OwnerProxyContract {
+        let configuration = LoadConfiguration::default();
+    
+        let contract_id = Contract::load_from(PROXY_CONTRACT_BINARY_PATH, configuration)
+            .unwrap()
+            .deploy(wallet, TxPolicies::default())
+            .await
+            .unwrap();
+    
+        let instance = ProxyContract::new(contract_id.clone(), wallet.clone());
+    
+        OwnerProxyContract { instance, id: contract_id.into() }
+    }
+    
     pub async fn setup_wallet_and_provider(
         asset_parameters: &WalletAssetConfiguration,
     ) -> (WalletUnlocked, Vec<AssetId>, Provider) {

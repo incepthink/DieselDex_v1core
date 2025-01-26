@@ -1,0 +1,19 @@
+# In /contracts/diesel_amm_proxy/Cargo.toml
+[package]
+name = "diesel_amm_proxy"
+version = "0.1.0"
+edition = "2021"
+
+[workspace] # Makes this a standalone package
+
+[dependencies]
+fuels = { version = "0.66.5", features = ["fuel-core-lib"] }
+
+[dev-dependencies]
+tokio = { version = "1.12", features = ["rt", "macros"] }
+
+
+[[test]]
+harness = true
+name = "proxy_tests"
+path = "tests/harness.rs"

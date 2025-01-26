@@ -1,0 +1,326 @@
+{
+  "programType": "contract",
+  "specVersion": "1",
+  "encodingVersion": "1",
+  "concreteTypes": [
+    {
+      "type": "()",
+      "concreteTypeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "type": "enum interface::ProxyError",
+      "concreteTypeId": "55d36405e4126bb26573a670d54514f7c09d756908651e67574a216071ac5a60",
+      "metadataTypeId": 1
+    },
+    {
+      "type": "enum standards::src5::State",
+      "concreteTypeId": "192bc7098e2fe60635a9918afb563e4e5419d386da2bdbf0d716b4bc8549802c",
+      "metadataTypeId": 2
+    },
+    {
+      "type": "enum std::identity::Identity",
+      "concreteTypeId": "ab7cd04e05be58e3fc15d424c2c4a57f824a2a2d97d67252440a3925ebdc1335",
+      "metadataTypeId": 3
+    },
+    {
+      "type": "enum std::option::Option<struct std::contract_id::ContractId>",
+      "concreteTypeId": "0d79387ad3bacdc3b7aad9da3a96f4ce60d9a1b6002df254069ad95a3931d5c8",
+      "metadataTypeId": 4,
+      "typeArguments": [
+        "29c10735d33b5159f0c71ee1dbd17b36a3e69e41f00fab0d42e1bd9f428d8a54"
+      ]
+    },
+    {
+      "type": "struct interface::ProxyInitialized",
+      "concreteTypeId": "5511440fa9b1eb7f31d0d342eb76f7da0a2e89feb136fcbe3b09ea33a949d9f9",
+      "metadataTypeId": 6
+    },
+    {
+      "type": "struct interface::ProxyUpgraded",
+      "concreteTypeId": "84819d777ae37e445daf4cec6a3e7a0fa96612c3fa488d2f9e3aeab46b8fc72d",
+      "metadataTypeId": 7
+    },
+    {
+      "type": "struct std::contract_id::ContractId",
+      "concreteTypeId": "29c10735d33b5159f0c71ee1dbd17b36a3e69e41f00fab0d42e1bd9f428d8a54",
+      "metadataTypeId": 9
+    },
+    {
+      "type": "u64",
+      "concreteTypeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+    }
+  ],
+  "metadataTypes": [
+    {
+      "type": "b256",
+      "metadataTypeId": 0
+    },
+    {
+      "type": "enum interface::ProxyError",
+      "metadataTypeId": 1,
+      "components": [
+        {
+          "name": "NotInitialized",
+          "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+        },
+        {
+          "name": "AlreadyInitialized",
+          "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+        },
+        {
+          "name": "InvalidOwner",
+          "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+        }
+      ]
+    },
+    {
+      "type": "enum standards::src5::State",
+      "metadataTypeId": 2,
+      "components": [
+        {
+          "name": "Uninitialized",
+          "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+        },
+        {
+          "name": "Initialized",
+          "typeId": 3
+        },
+        {
+          "name": "Revoked",
+          "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+        }
+      ]
+    },
+    {
+      "type": "enum std::identity::Identity",
+      "metadataTypeId": 3,
+      "components": [
+        {
+          "name": "Address",
+          "typeId": 8
+        },
+        {
+          "name": "ContractId",
+          "typeId": 9
+        }
+      ]
+    },
+    {
+      "type": "enum std::option::Option",
+      "metadataTypeId": 4,
+      "components": [
+        {
+          "name": "None",
+          "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+        },
+        {
+          "name": "Some",
+          "typeId": 5
+        }
+      ],
+      "typeParameters": [
+        5
+      ]
+    },
+    {
+      "type": "generic T",
+      "metadataTypeId": 5
+    },
+    {
+      "type": "struct interface::ProxyInitialized",
+      "metadataTypeId": 6,
+      "components": [
+        {
+          "name": "implementation",
+          "typeId": 9
+        },
+        {
+          "name": "owner",
+          "typeId": 3
+        }
+      ]
+    },
+    {
+      "type": "struct interface::ProxyUpgraded",
+      "metadataTypeId": 7,
+      "components": [
+        {
+          "name": "old_implementation",
+          "typeId": 9
+        },
+        {
+          "name": "new_implementation",
+          "typeId": 9
+        },
+        {
+          "name": "upgraded_by",
+          "typeId": 3
+        }
+      ]
+    },
+    {
+      "type": "struct std::address::Address",
+      "metadataTypeId": 8,
+      "components": [
+        {
+          "name": "bits",
+          "typeId": 0
+        }
+      ]
+    },
+    {
+      "type": "struct std::contract_id::ContractId",
+      "metadataTypeId": 9,
+      "components": [
+        {
+          "name": "bits",
+          "typeId": 0
+        }
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "inputs": [],
+      "name": "get_version",
+      "output": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "owner",
+          "concreteTypeId": "ab7cd04e05be58e3fc15d424c2c4a57f824a2a2d97d67252440a3925ebdc1335"
+        },
+        {
+          "name": "implementation",
+          "concreteTypeId": "29c10735d33b5159f0c71ee1dbd17b36a3e69e41f00fab0d42e1bd9f428d8a54"
+        }
+      ],
+      "name": "initialize",
+      "output": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [],
+      "name": "proxy_owner",
+      "output": "192bc7098e2fe60635a9918afb563e4e5419d386da2bdbf0d716b4bc8549802c",
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [],
+      "name": "proxy_target",
+      "output": "0d79387ad3bacdc3b7aad9da3a96f4ce60d9a1b6002df254069ad95a3931d5c8",
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "new_target",
+          "concreteTypeId": "29c10735d33b5159f0c71ee1dbd17b36a3e69e41f00fab0d42e1bd9f428d8a54"
+        }
+      ],
+      "name": "set_proxy_target",
+      "output": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [],
+      "name": "proxy_target",
+      "output": "0d79387ad3bacdc3b7aad9da3a96f4ce60d9a1b6002df254069ad95a3931d5c8",
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "new_target",
+          "concreteTypeId": "29c10735d33b5159f0c71ee1dbd17b36a3e69e41f00fab0d42e1bd9f428d8a54"
+        }
+      ],
+      "name": "set_proxy_target",
+      "output": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [],
+      "name": "proxy_owner",
+      "output": "192bc7098e2fe60635a9918afb563e4e5419d386da2bdbf0d716b4bc8549802c",
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    }
+  ],
+  "loggedTypes": [
+    {
+      "logId": "6184396689773849522",
+      "concreteTypeId": "55d36405e4126bb26573a670d54514f7c09d756908651e67574a216071ac5a60"
+    },
+    {
+      "logId": "6129755401890163583",
+      "concreteTypeId": "5511440fa9b1eb7f31d0d342eb76f7da0a2e89feb136fcbe3b09ea33a949d9f9"
+    },
+    {
+      "logId": "9548085821490560580",
+      "concreteTypeId": "84819d777ae37e445daf4cec6a3e7a0fa96612c3fa488d2f9e3aeab46b8fc72d"
+    }
+  ],
+  "messagesTypes": [],
+  "configurables": []
+}
