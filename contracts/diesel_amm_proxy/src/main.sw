@@ -14,7 +14,7 @@ use interface::*;
 
 storage {
     /// The target contract address
-    target: ContractId = ContractId::from(0x0000000000000000000000000000000000000000000000000000000000000000),
+    target: ContractId = ContractId::from(0x7bb458adc1d118713319a5baa00a2d049dd64d2916477d2688d76970c898cd55),
     /// The proxy owner state
     owner: State = State::Uninitialized,
     /// Initialization flag
