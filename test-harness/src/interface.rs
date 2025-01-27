@@ -12,9 +12,79 @@ abigen!(
     Contract(
         name = "MockToken",
         abi = "./contracts/mocks/mock_token/out/debug/mock_token-abi.json"
+    ),
+    Contract(
+        name = "OwnerProxy",
+        abi = "./contracts/diesel_amm_proxy/out/debug/diesel_amm_proxy.json"
+       
     )
 );
+pub mod proxy {
+    use fuels::programs::calls::CallParameters;
+    use fuels::programs::responses::CallResponse;
+    use fuels::types::{ContractId, Identity};
+    
+    use super::*;
 
+    pub async fn set_proxy_target(
+        contract: &DieselAMM<WalletUnlocked>,
+        new_target: ContractId,
+    ) -> CallResponse<()> {
+        contract
+            .methods()
+            .set_proxy_target(new_target)
+            .call()
+            .await
+            .unwrap()
+    }
+
+    pub async fn get_proxy_target(
+        contract: &DieselAMM<WalletUnlocked>,
+    ) -> CallResponse<ContractId> {
+        contract
+            .methods()
+            .proxy_target()
+            .call()
+            .await
+            .unwrap()
+    }
+
+    pub async fn get_proxy_owner(
+        contract: &DieselAMM<WalletUnlocked>,
+    ) -> CallResponse<Identity> {
+        contract
+            .methods()
+            .proxy_owner()
+            .call()
+            .await
+            .unwrap()
+    }
+
+    pub async fn get_version(
+        contract: &DieselAMM<WalletUnlocked>,
+    ) -> CallResponse<u64> {
+        contract
+            .methods()
+            .get_version()
+            .call()
+            .await
+            .unwrap()
+    }
+
+    // Function to initialize the proxy with implementation
+    pub async fn initialize_proxy(
+        contract: &DieselAMM<WalletUnlocked>,
+        implementation: ContractId,
+        owner: Identity,
+    ) -> CallResponse<()> {
+        contract
+            .methods()
+            .initialize_proxy(implementation, owner)
+            .call()
+            .await
+            .unwrap()
+    }
+}
 pub mod amm {
     use fuels::prelude::{Bech32ContractId, VariableOutputPolicy};
     use fuels::programs::calls::CallParameters;

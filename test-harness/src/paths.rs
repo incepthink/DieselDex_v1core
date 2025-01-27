@@ -6,3 +6,5 @@ pub const HOOK_CONTRACT_BINARY_PATH: &str =
 // Mocks
 pub const MOCK_TOKEN_CONTRACT_BINARY_PATH: &str =
     "../../contracts/mocks/mock_token/out/debug/mock_token.bin";
+pub const PROXY_CONTRACT_BINARY_PATH: &str =
+    "../../contracts/diesel_owner_proxy/out/debug/diesel_owner_proxy.bin";
