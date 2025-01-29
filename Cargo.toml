@@ -12,5 +12,5 @@ members = ["./contracts/diesel_amm_contract", "./test-harness", "./contracts/die
 
 
 [workspace.dependencies]
-fuels = { version = "0.66.5", features = ["fuel-core-lib"] }
+fuels = { version = "0.66.6", features = ["fuel-core-lib"] }
 tokio = { version = "1.12", features = ["rt", "macros"] }
