@@ -7,7 +7,7 @@ name = "diesel_amm_proxy"
 [dependencies]
 interfaces = { path = "../../libraries/interfaces" }
 math = { path = "../../libraries/math" }
-standards = { git = "https://github.com/FuelLabs/sway-standards", tag = "v0.6.1" }
-sway_libs = { git = "https://github.com/FuelLabs/sway-libs", tag = "v0.24.0" }
+standards = { git = "https://github.com/FuelLabs/sway-standards", tag = "v0.6.3" }
+sway_libs = { git = "https://github.com/FuelLabs/sway-libs", tag = "v0.24.1" }
 
 utils = { path = "../../libraries/utils" }

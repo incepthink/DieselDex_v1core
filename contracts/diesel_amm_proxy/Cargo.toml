@@ -7,7 +7,7 @@ edition = "2021"
 [workspace] # Makes this a standalone package
 
 [dependencies]
-fuels = { version = "0.66.5", features = ["fuel-core-lib"] }
+fuels = { version = "0.66.6", features = ["fuel-core-lib"] }
 
 [dev-dependencies]
 tokio = { version = "1.12", features = ["rt", "macros"] }
