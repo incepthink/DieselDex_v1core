@@ -54,6 +54,7 @@ use sway_libs::{
     },
     reentrancy::reentrancy_guard,
 };
+use interfaces::lp_rewards_hook::LPRewardsHook;
 
 configurable {
     /// Liquidity provider fee for volatile pools. 0,3%, in basis points
@@ -186,14 +187,19 @@ fn initialize_pool(
 #[storage(read, write)]
 fn mint_lp_asset(pool_id: PoolId, to: Identity, amount: u64) -> Asset {
     let (pool_lp_asset_sub_id, pool_lp_asset) = get_lp_asset(pool_id);
-    // must be present in the storage
     let lp_total_supply = get_lp_total_supply(pool_lp_asset).unwrap();
     update_total_supply(
-        msg_sender()
-            .unwrap(),
+        msg_sender().unwrap(),
         pool_lp_asset,
         lp_total_supply + amount,
     );
+    
+    // Call LP rewards hook if configured
+    if let Some(hook_contract) = storage.hook.read() {
+        abi(LPRewardsHook, hook_contract.into())
+            .on_mint(to, pool_id, amount);
+    }
+    
     mint_to(to, pool_lp_asset_sub_id, amount);
     Asset::new(pool_lp_asset, amount)
 }
@@ -203,26 +209,29 @@ fn mint_lp_asset(pool_id: PoolId, to: Identity, amount: u64) -> Asset {
 fn burn_lp_asset(pool_id: PoolId, burned_liquidity: Asset) -> u64 {
     let (pool_lp_asset_sub_id, pool_lp_asset) = get_lp_asset(pool_id);
     require(
-        burned_liquidity
-            .id == pool_lp_asset,
+        burned_liquidity.id == pool_lp_asset,
         InputError::InvalidAsset(burned_liquidity.id),
     );
     require(burned_liquidity.amount > 0, InputError::ZeroInputAmount);
 
-    // must be present in the storage
     let lp_total_supply = get_lp_total_supply(pool_lp_asset).unwrap();
     require(
-        lp_total_supply >= burned_liquidity
-            .amount,
+        lp_total_supply >= burned_liquidity.amount,
         AmmError::InsufficientLiquidity,
     );
 
+    let sender = msg_sender().unwrap();
+    
+    // Call LP rewards hook if configured
+    if let Some(hook_contract) = storage.hook.read() {
+        abi(LPRewardsHook, hook_contract.into())
+            .on_burn(sender, pool_id, burned_liquidity.amount);
+    }
+
     update_total_supply(
-        msg_sender()
-            .unwrap(),
+        sender,
         pool_lp_asset,
-        lp_total_supply - burned_liquidity
-            .amount,
+        lp_total_supply - burned_liquidity.amount,
     );
     burn(pool_lp_asset_sub_id, burned_liquidity.amount);
     lp_total_supply
@@ -455,7 +464,10 @@ impl DieselAMM for Contract {
     #[storage(write)]
     fn set_hook(contract_id: Option<ContractId>) {
         only_owner();
-        // sway doesn't allow to check if a contract id implements an interface
+        // Optionally verify it's an LP rewards hook
+        if let Some(id) = contract_id {
+            require(is_lp_rewards_hook(id), "Invalid hook contract");
+        }
         storage.hook.write(contract_id);
     }
 
@@ -640,4 +652,42 @@ impl DieselAMM for Contract {
             transfer_ownership(new_owner);
         }
     }
+
+    #[storage(read)]
+    fn get_lp_rewards(user: Identity, pool_id: PoolId) -> u64 {
+        if let Some(hook_contract) = storage.hook.read() {
+            abi(LPRewardsHook, hook_contract.into())
+                .get_user_rewards(user, pool_id)
+        } else {
+            0
+        }
+    }
+
+    #[storage(read)]
+    fn get_total_lp_rewards(user: Identity) -> u64 {
+        if let Some(hook_contract) = storage.hook.read() {
+            abi(LPRewardsHook, hook_contract.into())
+                .get_total_user_rewards(user)
+        } else {
+            0
+        }
+    }
+
+    #[storage(read)]
+    fn get_user_reward_pools(user: Identity) -> Vec<PoolId> {
+        if let Some(hook_contract) = storage.hook.read() {
+            abi(LPRewardsHook, hook_contract.into())
+                .get_user_reward_pools(user)
+        } else {
+            Vec::new()
+        }
+    }
+}
+
+#[storage(read)]
+fn is_lp_rewards_hook(contract_id: ContractId) -> bool {
+    // Simply try to call a view function and catch any errors
+    let result: u64 = abi(LPRewardsHook, contract_id.into())
+        .get_total_user_rewards(Identity::ContractId(ContractId::this()));
+    result > 0
 }

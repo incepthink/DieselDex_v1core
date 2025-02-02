@@ -6,7 +6,7 @@ use std::{
 };
 use standards::src5::State;
 
-// Events - Make fields public
+// Events
 pub struct ProxyUpgraded {
     pub old_implementation: ContractId,
     pub new_implementation: ContractId,
@@ -29,9 +29,6 @@ pub enum ProxyError {
 abi DieselAMMProxy {
     #[storage(read, write)]
     fn initialize(owner: Identity, implementation: ContractId);
-    
-    #[storage(read, write)]
-    fn set_proxy_target(new_target: ContractId);
     
     #[storage(read)]
     fn proxy_target() -> Option<ContractId>;

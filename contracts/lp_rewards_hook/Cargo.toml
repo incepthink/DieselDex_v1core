@@ -1,6 +1,6 @@
-# In /contracts/diesel_amm_proxy/Cargo.toml
+
 [package]
-name = "diesel_amm_proxy"
+name = "lp_rewards_hook"
 version = "0.1.0"
 edition = "2021"
 

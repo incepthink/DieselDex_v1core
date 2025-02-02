@@ -5,25 +5,18 @@ use fuels::{
     types::{ContractId, Identity},
 };
 
-
-    // Generate bindings for the proxy contract
-    abigen!(Contract(
-        name = "DieselAMMProxy",
-        abi = "out/debug/diesel_amm_proxy-abi.json"
-    ),
-    Contract(
-        name = "DieselAMMContract",
-        abi = "../diesel_amm_contract/out/debug/diesel_amm_contract-abi.json"
-    ));
-
-
-
+// Generate bindings only for the proxy contract
+abigen!(Contract(
+    name = "DieselAMMProxy",
+    abi = "out/debug/diesel_amm_proxy-abi.json"
+));
 
 // Import State directly from generated bindings after abigen
 use standards::src5::State;
 
 pub struct TestContext {
     pub deployer: WalletUnlocked,
+    pub other_wallet: WalletUnlocked,
     pub proxy_instance: DieselAMMProxy<WalletUnlocked>,
     pub implementation_id: ContractId,
 }
@@ -32,6 +25,7 @@ impl TestContext {
     pub async fn new() -> Self {
         // Setup deployer wallet
         let deployer = WalletUnlocked::new_random(None);
+        let other_wallet = WalletUnlocked::new_random(None);
         
         // Deploy implementation first
         let implementation_id = Contract::load_from(
@@ -58,6 +52,7 @@ impl TestContext {
 
         Self {
             deployer,
+            other_wallet,
             proxy_instance,
             implementation_id,
         }
@@ -100,6 +95,16 @@ mod test {
             .value;
 
         assert_eq!(target, Some(context.implementation_id));
+
+        let version = proxy
+            .methods()
+            .get_version()
+            .call()
+            .await
+            .unwrap()
+            .value;
+
+        assert_eq!(version, 1);
     }
 
     #[tokio::test]
@@ -178,11 +183,10 @@ mod test {
         let context = TestContext::new().await;
         let proxy = context.setup_initialized_proxy().await;
 
-        // Create non-owner wallet
-        let non_owner = WalletUnlocked::new_random(None);
+        // Create non-owner instance of proxy
         let non_owner_proxy = DieselAMMProxy::new(
             proxy.contract_id().clone(),
-            non_owner,
+            context.other_wallet.clone(),
         );
 
         // Try to upgrade (should fail)
@@ -192,5 +196,32 @@ mod test {
             .call()
             .await
             .unwrap();
+    }
+
+    #[tokio::test]
+    async fn test_uninitialized_state() {
+        let context = TestContext::new().await;
+        
+        // Check target before initialization
+        let target = context.proxy_instance
+            .methods()
+            .proxy_target()
+            .call()
+            .await
+            .unwrap()
+            .value;
+
+        assert_eq!(target, None);
+
+        // Check owner before initialization
+        let owner = context.proxy_instance
+            .methods()
+            .proxy_owner()
+            .call()
+            .await
+            .unwrap()
+            .value;
+
+        assert_eq!(owner, State::Uninitialized);
     }
 }
