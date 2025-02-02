@@ -42,4 +42,6 @@ pub enum AmmError {
     CannotAddLessThanMinimumLiquidity: (),
     /// Curve invariant violation.
     CurveInvariantViolation: (u256, u256),
+    /// Insufficient reward.
+    InsufficientReward: (),
 }

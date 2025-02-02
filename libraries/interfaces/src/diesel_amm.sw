@@ -47,4 +47,16 @@ abi DieselAMM {
 
     #[storage(read, write)]
     fn transfer_ownership(new_owner: Identity);
+
+    /// Returns the LP rewards for a specific user and pool
+    #[storage(read)]
+    fn get_lp_rewards(user: Identity, pool_id: PoolId) -> u64;
+
+    /// Returns the total LP rewards across all pools for a user
+    #[storage(read)]
+    fn get_total_lp_rewards(user: Identity) -> u64;
+
+    /// Returns all pools where a user has LP rewards
+    #[storage(read)]
+    fn get_user_reward_pools(user: Identity) -> Vec<PoolId>;
 }
