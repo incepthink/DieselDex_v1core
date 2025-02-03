@@ -1,6 +1,6 @@
 [[package]]
 name = "core"
-source = "path+from-root-8357A6DDC5F39D14"
+source = "path+from-root-2E654A91A5A21ADE"
 
 [[package]]
 name = "diesel_amm_contract"
@@ -9,6 +9,18 @@ dependencies = [
     "interfaces",
     "math",
     "standards git+https://github.com/FuelLabs/sway-standards?tag=v0.6.1#792639cdf391565e6e6a02482ea8a46d9604a6f5",
+    "std",
+    "sway_libs",
+    "utils",
+]
+
+[[package]]
+name = "diesel_amm_proxy"
+source = "member"
+dependencies = [
+    "interfaces",
+    "math",
+    "standards git+https://github.com/FuelLabs/sway-standards?tag=v0.6.3#6ffb53d649b9799acda6d03c3ed82706daaafe7d",
     "std",
     "sway_libs",
     "utils",
@@ -57,8 +69,13 @@ source = "git+https://github.com/FuelLabs/sway-standards?tag=v0.6.1#792639cdf391
 dependencies = ["std"]
 
 [[package]]
+name = "standards"
+source = "git+https://github.com/FuelLabs/sway-standards?tag=v0.6.3#6ffb53d649b9799acda6d03c3ed82706daaafe7d"
+dependencies = ["std"]
+
+[[package]]
 name = "std"
-source = "git+https://github.com/fuellabs/sway?tag=v0.65.2#66bb430395daf5b8f7205f7b9d8d008e2e812d54"
+source = "git+https://github.com/fuellabs/sway?tag=v0.66.6#986aee2c1e34c9cd958c81e7fd6b84638b26619b"
 dependencies = ["core"]
 
 [[package]]
