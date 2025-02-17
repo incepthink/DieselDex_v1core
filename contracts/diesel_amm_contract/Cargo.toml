@@ -1,12 +1,14 @@
 [package]
 name = "diesel_amm_contract"
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
 
 [dependencies]
 test-harness = { path = "../../test-harness" }
-tokio = { workspace = true }
 fuels = { workspace = true }
+tokio = { workspace = true }
+fuel-core = { workspace = true }
+fuel-core-client = { workspace = true }
 
 [[test]]
 harness = true

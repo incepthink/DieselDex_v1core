@@ -1,13 +1,14 @@
 # In /contracts/diesel_amm_proxy/Cargo.toml
 [package]
 name = "diesel_amm_proxy"
-version = "0.1.0"
-edition = "2021"
-
-[workspace] # Makes this a standalone package
+version.workspace = true
+edition.workspace = true
 
 [dependencies]
-fuels = { version = "0.66.6", features = ["fuel-core-lib"] }
+fuels = { workspace = true }
+tokio = { workspace = true }
+fuel-core = { workspace = true }
+fuel-core-client = { workspace = true }
 
 
 [dev-dependencies]

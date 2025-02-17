@@ -1,24 +1,26 @@
 use fuels::prelude::{abigen, AssetId, TxPolicies, WalletUnlocked};
+use crate::paths::ABI_PATH;
 
 abigen!(
     Contract(
         name = "DieselAMM",
-        abi = "./contracts/diesel_amm_contract/out/debug/diesel_amm_contract-abi.json"
+        abi = "../../contracts/diesel_amm_contract/out/debug/diesel_amm_contract-abi.json"
     ),
     Contract(
         name = "ValidationHook",
-        abi = "./contracts/diesel_validation_hook/out/debug/diesel_validation_hook-abi.json"
+        abi = "../../contracts/diesel_validation_hook/out/debug/diesel_validation_hook-abi.json"
     ),
     Contract(
         name = "MockToken",
-        abi = "./contracts/mocks/mock_token/out/debug/mock_token-abi.json"
+        abi = "../../contracts/mocks/mock_token/out/debug/mock_token-abi.json"
     ),
     Contract(
         name = "OwnerProxy",
-        abi = "./contracts/diesel_amm_proxy/out/debug/diesel_amm_proxy.json"
-       
+        abi = "../../contracts/diesel_amm_proxy/out/debug/diesel_amm_proxy-abi.json"
     )
 );
+
+// ... rest of the file stays the same ...
 pub mod proxy {
     use fuels::programs::calls::CallParameters;
     use fuels::programs::responses::CallResponse;

@@ -5,6 +5,7 @@ use std::{
     contract_id::ContractId,
 };
 use standards::src5::State;
+use standards::src14::{SRC14, SRC14Extension};
 
 // Events
 pub struct ProxyUpgraded {
@@ -27,15 +28,11 @@ pub enum ProxyError {
 
 // Core proxy interface
 abi DieselAMMProxy {
+    /// Initializes the proxy with an owner and implementation contract.
     #[storage(read, write)]
     fn initialize(owner: Identity, implementation: ContractId);
-    
-    #[storage(read)]
-    fn proxy_target() -> Option<ContractId>;
-    
-    #[storage(read)]
-    fn proxy_owner() -> State;
-    
+
+    /// Returns the version of the proxy contract.
     #[storage(read)]
     fn get_version() -> u64;
 }

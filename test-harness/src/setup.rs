@@ -1,4 +1,15 @@
 use fuels::prelude::{AssetId, Contract, LoadConfiguration, Provider, TxPolicies, WalletUnlocked};
+use fuels::types::ContractId;
+
+pub struct OwnerProxyContract {
+    pub id: ContractId,
+    pub instance: OwnerProxy<WalletUnlocked>,
+}
+
+pub struct ProxyContract {
+    pub id: ContractId,
+    pub instance: OwnerProxy<WalletUnlocked>,
+}
 
 pub mod common {
     use super::*;
@@ -51,7 +62,7 @@ pub mod common {
             .await
             .unwrap();
     
-        let instance = ProxyContract::new(contract_id.clone(), wallet.clone());
+        let instance = OwnerProxy::new(contract_id.clone(), wallet.clone());
     
         OwnerProxyContract { instance, id: contract_id.into() }
     }

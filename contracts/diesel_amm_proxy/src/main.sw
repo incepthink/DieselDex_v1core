@@ -47,22 +47,11 @@ impl DieselAMMProxy for Contract {
     fn get_version() -> u64 {
         1
     }
-
-    #[storage(read)]
-    fn proxy_target() -> Option<ContractId> {
-        Some(storage.target.read())
-    }
-
-    #[storage(read)]
-    fn proxy_owner() -> State {
-        storage.owner.read()
-    }
 }
 
 impl SRC14 for Contract {
     #[storage(read, write)]
     fn set_proxy_target(new_target: ContractId) {
-        // Check owner
         require(
             storage.owner.read() == State::Initialized(msg_sender().unwrap()),
             ProxyError::InvalidOwner
