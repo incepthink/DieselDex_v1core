@@ -1,16 +1,18 @@
+[workspace]
+members = [
+    "contracts/diesel_amm_contract",
+    "contracts/diesel_amm_proxy",
+    "test-harness",
+]
+resolver = "2"
+
 [workspace.package]
-name = "diesel-v1-core"
 version = "0.1.0"
 edition = "2021"
-
-[workspace]
-resolver = "3"
-members = ["./contracts/diesel_amm_contract", "./test-harness", "./contracts/diesel_amm_proxy"] 
-   
-   
-
-
 
 [workspace.dependencies]
 fuels = { version = "0.66.6", features = ["fuel-core-lib"] }
 tokio = { version = "1.12", features = ["rt", "macros"] }
+fuel-core = "0.20.8"
+fuel-core-client = "0.20.8"
+    
